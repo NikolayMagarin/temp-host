@@ -43,6 +43,16 @@ app.get('/:page/images/:image', (req, res) => {
   }
 });
 
+app.get('/images/:image', (req, res) => {
+  const imagePath = path.join(__dirname, 'public', 'images', req.params.image);
+
+  if (fs.existsSync(imagePath)) {
+    res.sendFile(imagePath);
+  } else {
+    res.end();
+  }
+});
+
 app.get('*', (req, res) => {
   res.sendFile(notFoundHtmlPath);
 });
